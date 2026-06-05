@@ -19,30 +19,27 @@ class Solution {
         Queue <TreeNode> q=new LinkedList<>();
         if(root==null) return 0;
         q.add(root);
+        int max=Integer.MIN_VALUE;
+        int Finallevel=-1;
+        int curr_level=0;
         while(!q.isEmpty()){
             ArrayList<Integer> level=new ArrayList<>();
             int size=q.size();
+            int sum=0;
             for(int i=0;i<size;i++){
                 TreeNode node=q.poll();
+                sum+=node.val;
                 level.add(node.val);
                 if(node.left!=null) q.add(node.left);
                 if(node.right!=null) q.add(node.right);
             }
-            arr.add(level);
-        }
-        ArrayList<Integer> levelArr=new ArrayList<>();
-        int max=Integer.MIN_VALUE;
-        int index=0;
-        for(int i=0;i<arr.size();i++){
-            int sum=0;
-            for(int j=0;j<arr.get(i).size();j++){
-                sum+=arr.get(i).get(j);
-            }
+            
             if(sum>max){
                 max=sum;
-                index=i+1;
+                Finallevel=curr_level+1;
             }
+            curr_level++;
         }
-        return index;
+        return Finallevel;
     }
 }
