@@ -14,33 +14,26 @@
  * }
  */
 class Solution {
+    boolean isSame(TreeNode p,TreeNode q){
+        if(p==null&&q==null) return true;
+        if((p==null&&q!=null)||(p!=null&&q==null)) return false;
+        if(p.val!=q.val) return false;
+        return isSame(p.left,q.left)&&isSame(p.right,q.right);
+    }
+    TreeNode invertTree(TreeNode root){
+        if(root==null) return null;
+        TreeNode temp=root.left;
+        root.left=root.right;
+        root.right=temp;
+        TreeNode p=invertTree(root.left);
+        TreeNode q=invertTree(root.right);
+        return root;
+    }
     public boolean isSymmetric(TreeNode root) {
-        Queue<TreeNode> q=new LinkedList<>();
-        q.add(root);
-        while(!q.isEmpty()){
-            int size=q.size();
-            ArrayList<Integer> arr=new ArrayList<>();
-            while(size>0){
-                size--;
-                TreeNode node=q.poll();
-                if(node==null){
-                    arr.add(null);
-                    continue;
-                }
-                arr.add(node.val);
-                q.add(node.left);
-                q.add(node.right);
-            }
-            int start=0;
-            int end=arr.size()-1;
-            while(start<end){
-                if(arr.get(start)!=arr.get(end)) return false;
-                else{
-                    start++;
-                    end--;
-                }
-            }
-        }
-        return true;
+        if(root==null) return true;
+
+        TreeNode p=invertTree(root.left);
+        TreeNode q=root.right;
+        return isSame(p,q);
     }
 }
