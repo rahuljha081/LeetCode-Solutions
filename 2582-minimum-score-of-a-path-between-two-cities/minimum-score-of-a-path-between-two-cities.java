@@ -19,20 +19,19 @@ class Solution {
             adj.get(to).add(new Pair(from,dist));
             adj.get(from).add(new Pair(to,dist));
         }
-        Queue<Pair> q=new LinkedList<>();
-        q.add(new Pair(n,0));
+        Queue<Integer> q=new LinkedList<>();
+        q.add(n);
         boolean vis[]=new boolean[n+1];
         int ans=Integer.MAX_VALUE;
         ArrayList<Integer> arr=new ArrayList<>();
         while(!q.isEmpty()){
-            Pair p=q.poll();
-            int curr_node=p.node;
-            for(int i=0;i<adj.get(curr_node).size();i++){
-                int neigh_node=adj.get(curr_node).get(i).node;
+            int val=q.poll();
+            for(int i=0;i<adj.get(val).size();i++){
+                int neigh_node=adj.get(val).get(i).node;
                 if(vis[neigh_node]==false){
                     arr.add(neigh_node);
                     vis[neigh_node]=true;
-                    q.add(new Pair(neigh_node,0));
+                    q.add(neigh_node);
                 }
 
             }
