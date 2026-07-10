@@ -20,21 +20,17 @@ class Solution {
         Queue<TreeNode> q=new LinkedList<>();
         q.add(root);
         while(!q.isEmpty()){
-            ArrayList<Integer> temp=new ArrayList<>();
+            long sum=0;
             int size=q.size();
+            int count=size;
             while(size>0){
                 TreeNode n=q.poll();
                 size--;;
-                temp.add(n.val);
+                sum+=n.val;
                 if(n.left!=null) q.add(n.left);
                 if(n.right!=null) q.add(n.right);
             }
-            double average=0;
-            long sum=0;
-            for(int i=0;i<temp.size();i++){
-                sum+=temp.get(i);
-            }
-            average=(double)sum/temp.size();
+            double average =(double) sum/count;
             res.add(average);
         }
         return res;
