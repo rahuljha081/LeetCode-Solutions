@@ -17,12 +17,13 @@ class Solution {
                 c1++;
             }
         }
-        int val=Math.min(sumOdd,sumEven)/2;
-        for(int j=val;j>=1;j--){
-            if(sumOdd%j==0&&sumEven%j==0){
-                return j;
-            }
+        int a=Math.max(sumOdd,sumEven);
+        int b=Math.min(sumOdd,sumEven);
+        while (b != 0) {
+            int temp = a % b;
+            a = b;
+            b = temp;
         }
-        return -1;
+        return a;
     }
 }
