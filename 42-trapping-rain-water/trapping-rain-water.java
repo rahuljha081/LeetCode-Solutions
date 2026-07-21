@@ -1,22 +1,25 @@
 class Solution {
     public int trap(int[] height) {
-        int prefix[]=new int[height.length];
-        int suffix[]=new int[height.length];
-        prefix[0]=height[0];
+        if(height.length == 0) return 0;
+        int prefixsum[]=new int[height.length];
+        prefixsum[0]=height[0];
+        int suffixsum[]=new int[height.length];
         for(int i=1;i<height.length;i++){
-            prefix[i]=Math.max(prefix[i-1],height[i]);
+            prefixsum[i]=Math.max(height[i],prefixsum[i-1]);
         }
-        suffix[height.length-1]=height[height.length-1];
+        suffixsum[height.length - 1] = height[height.length - 1];
         for(int i=height.length-2;i>=0;i--){
-            suffix[i]=Math.max(suffix[i+1],height[i]);
+            suffixsum[i]=Math.max(height[i],suffixsum[i+1]);
         }
-        int max=0;
-        for(int i=0;i<height.length;i++){
-            int val=Math.min(prefix[i],suffix[i]);
+        int res=0;
+        for(int i=1;i<height.length-1;i++){
+            int leftMax=prefixsum[i];
+            int rightMax=suffixsum[i];
+            int val=Math.min(leftMax,rightMax);
             if(val>height[i]){
-                max+=val-height[i];
-            }
+                res+=val-height[i];
+            } 
         }
-        return max;
+        return res;
     }
 }
