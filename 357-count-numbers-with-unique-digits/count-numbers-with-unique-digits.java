@@ -1,12 +1,16 @@
 class Solution {
     boolean checkUnique(int val){
-        HashSet<Integer> set=new HashSet<>();
-        while(val>0){
-            int r=val%10;
-            if(set.contains(r)) return false;
-            else set.add(r);
-            val/=10;
+  boolean[] set = new boolean[10];
+
+        while(val > 0){
+            int r = val % 10;
+
+            if(set[r]) return false;
+
+            set[r] = true;
+            val /= 10;
         }
+
         return true;
 
     }
