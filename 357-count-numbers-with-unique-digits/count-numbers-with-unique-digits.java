@@ -15,7 +15,7 @@ class Solution {
 
     }
     public int countNumbersWithUniqueDigits(int n) {
-        if(n==8) return 2345851;
+        
         int count=0;
         int till=1;
         for(int i=0;i<n;i++){
