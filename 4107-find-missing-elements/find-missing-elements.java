@@ -5,10 +5,10 @@ class Solution {
             set.add(num);
         }
         List<Integer> arr=new ArrayList<>();
-        
-        int min=Collections.min(set);
-        int max=Collections.max(set);
-        for(int i=min+1;i<=max;i++){
+        Arrays.sort(nums);
+        int first=nums[0];
+        int last=nums[nums.length-1];
+        for(int i=first;i<=last;i++){
             if(!set.contains(i)){
                 arr.add(i);
             }
