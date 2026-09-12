@@ -1,38 +1,41 @@
 class Solution {
-    boolean solve(int[] nums,int n,int i,int sum,int dp[][]){
+    boolean solve(int[] nums,int target,int n,int i,int dp[][]){
+        if(dp[i][target]!=-1){
+            if(dp[i][target]==0){
+                return false;
+            }else{
+                return true;
+            }
+        }
         if(i==n){
-            if(sum==0) return true;
             return false;
         }
-        if(dp[i][sum]!=-1){
-            if(dp[i][sum]==1) return true;
-            return false;
-        }
+        if(target==0) return true;
         boolean take=false;
-        if(nums[i]<=sum){
-            take=solve(nums,n,i+1,sum-nums[i],dp);
+        if(nums[i]<=target){
+            take=solve(nums,target-nums[i],n,i+1,dp);
         }
-        boolean skip=solve(nums,n,i+1,sum,dp);
+        boolean skip=solve(nums,target,n,i+1,dp);
         if(take||skip){
-            dp[i][sum]=1;
+            dp[i][target]=1;
         }else{
-            dp[i][sum]=0;
+            dp[i][target]=0;
         }
         return take||skip;
     }
     public boolean canPartition(int[] nums) {
-        int sum=0;
+        int TotalSum=0;
         for(int i=0;i<nums.length;i++){
-            sum+=nums[i];
+            TotalSum+=nums[i];
         }
-        if(sum%2!=0) return false;
-        sum/=2;
-        int dp[][]=new int[nums.length+1][sum+1];
-        for(int i=0;i<nums.length+1;i++){
-            for(int j=0;j<sum+1;j++){
-                dp[i][j]=-1;
-            }
+        if(TotalSum%2!=0){
+            return false;
         }
-        return solve(nums,nums.length,0,sum,dp);
+        int target=TotalSum/2;
+        int dp[][]=new int[nums.length+1][target+1];
+        for(int i=0;i<dp.length;i++){
+            Arrays.fill(dp[i],-1);
+        }
+        return solve(nums,target,nums.length,0,dp);
     }
 }
